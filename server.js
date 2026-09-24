@@ -20,8 +20,7 @@ const ai = process.env.GEMINI_API_KEY
   : null;
 
 app.use(express.json({ limit: '1mb' }));
-app.use(express.static(__dirname));
-
+app.use(express.static(path.join(__dirname, "public")));
 app.post('/api/chat', async (req, res) => {
   try {
     const { message, history = [] } = req.body;
@@ -106,7 +105,7 @@ Keep the tone encouraging but not overly verbose.`,
 
 app.use((req, res, next) => {
   if (req.method === 'GET') {
-    return res.sendFile(path.join(__dirname, 'index.html'));
+    return res.sendFile(path.join(__dirname, "public", "index.html"));
   }
   next();
 });
